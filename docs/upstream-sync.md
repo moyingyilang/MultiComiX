@@ -49,3 +49,24 @@ scripts/upstream-drift.sh /path/to/JMNeXt
 按 drift 报告里「缺失」的数量排序，优先搬与图源无关的组件：
 `ExpandableOptionRow`、`RealGlass`、`RubberBand`、`ThemeModeIcon`、`ItemMotion`（已有则对齐）。
 再往下才是屏幕：`Home`、`Favorites`、`Search`、`Detail`、`Reader` 的接口改写。
+
+## 六、三个源各有上游，JMNeXt 只管其中一条
+
+「跟上游」不是跟一个仓库，而是四条线：
+
+| 线 | 上游 | 用来对什么 |
+| --- | --- | --- |
+| 界面 / 整体架构 | [JMNeXt](https://github.com/moyingyilang/JMNeXt) | 屏幕、组件、主题、动效、构建经验 |
+| JM 图源 | 同上（`shared/` 里的协议实现） | 接口端点、签名、反切片 |
+| Pica 图源 | [raoxwup/haka_comic](https://github.com/raoxwup/haka_comic)（Dart，GPL-3.0）与 [moyingyilang/picacg-reversing](https://github.com/moyingyilang/picacg-reversing) | 接口端点、请求头/nonce、数据结构 |
+| EH 图源 | [xiaojieonly/Ehviewer_CN_SXJ](https://github.com/xiaojieonly/Ehviewer_CN_SXJ) | 页面解析、Cookie 与登录流程、画廊结构 |
+
+因此统一模型 `core/model/Models.kt` 的目标是**三家字段的并集**，而不是 JMNeXt 一家的拷贝：
+
+- 以 JMNeXt 的 DTO 为形状基准（界面是按它写的）
+- Pica 的字段（如 `eps` 的 order/title、图片分档）与 EH 的字段（如画廊 token、页数）
+  能映射的进字段，映射不了的进 `extra`
+- 界面只按「字段有没有值」显隐，不按「哪个源」分支
+
+许可注意：haka_comic 是 GPL-3.0、EhViewer 系是 Apache/GPL 混合，本项目是 AGPL-3.0。
+**只参考协议与数据结构，不复制它们的代码**；真要复制，先确认许可兼容并在致谢里署名。
