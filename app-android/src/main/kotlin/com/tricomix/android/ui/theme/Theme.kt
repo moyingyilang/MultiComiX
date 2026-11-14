@@ -76,6 +76,9 @@ object JmEasing {
 
     /** HyperOS 的转场曲线（退出用）：比进入更快收走，让前方的页迅速让位。 */
     val hyperOSOut: Easing = CubicBezierEasing(0.5f, 0f, 0.30f, 1f)
+
+      /** 通用强调曲线：cubic-bezier(0.2, 0, 0, 1)，与上游一致。 */
+      val emphasized: Easing = CubicBezierEasing(0.2f, 0f, 0f, 1f)
 }
 
 /**
