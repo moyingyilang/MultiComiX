@@ -1,21 +1,21 @@
-# TriComiX
+# MultiComiX
 
 **一个核心，多个可插拔内容源。** 使用 Kotlin 与 Compose Multiplatform 实现的多源漫画阅读器：
 界面与业务逻辑仅依赖统一的 `ComicSource` 接口，每个内容源只负责自身的协议实现。
 
-> **项目状态**：Android 测试版可安装（`0.2.0-preview`，tag `preview-0.2.0`，`applicationId` 为 `com.tricomix`）。
+> **项目状态**：Android 测试版可安装（`0.2.0-preview`，tag `preview-0.2.0`，`applicationId` 为 `com.multicomix`）。
 > 三个内容源均已在真实环境跑通（见[内容源验证状态](#内容源验证状态)）；界面沿用 JMNeXt，
 > 搜索 / 详情 / 阅读三屏已迁入，首页采用分区横向排布，另有侧栏与登录表单。
 > 仓库当前**没有 GitHub Release**，APK 需自行构建（见[快速开始](#快速开始)）。
 
 ## 定位
 
-TriComiX 是在 [JMNeXt](https://github.com/moyingyilang/JMNeXt) 之后迭代开发的**三源统一阅读器**，
+MultiComiX 是在 [JMNeXt](https://github.com/moyingyilang/JMNeXt) 之后迭代开发的**三源统一阅读器**，
 目标是把 EH、Pica、JM 三个原本各自独立的阅读器整合进同一个客户端：共用一套界面、一套收藏与历史、
 一处凭据保护，各内容源只负责自身协议。界面、主题与部分组件引用 JMNeXt
 （同一作者、同一许可证，见[致谢](#致谢)）；三个内容源的协议实现均为自行重写，不复制任何第三方实现。
 
-TriComiX 与 JMNeXt 是两个独立项目：JMNeXt 继续按单源维护与发布，不引入多源架构；
+MultiComiX 与 JMNeXt 是两个独立项目：JMNeXt 继续按单源维护与发布，不引入多源架构；
 本项目同样不会改动其界面层实现。
 
 ## 目录
@@ -153,7 +153,7 @@ PicACG 源需要两个常量（apiKey 与 HMAC 签名密钥）。按项目所有
 ```bash
 export TRICOMIX_PICA_APIKEY=…
 export TRICOMIX_PICA_SIGNINGKEY=…
-# 或写入 ~/.tricomix/pica-keys.properties（apiKey=… / signingKey=…）
+# 或写入 ~/.multicomix/pica-keys.properties（apiKey=… / signingKey=…）
 ```
 
 **风险说明**：该签名密钥在此前一次推送中已经暴露，因此写入仓库并未新增暴露面；

@@ -2,7 +2,7 @@
 
 ## 名字
 
-**TriComiX** —— 仓库名 `TriComiX`，包名/命名空间 `com.tricomix`，可执行文件 `tricomix`。
+**MultiComiX** —— 仓库名 `MultiComiX`，包名/命名空间 `com.multicomix`，可执行文件 `multicomix`。
 
 ## 构成
 
@@ -16,8 +16,8 @@
 
 | 查询 | 结果 |
 | --- | --- |
-| GitHub 仓库名 `tricomix` | **无任何同名仓库** |
-| 漫画阅读器领域 `tricomix comic` | 无占用 |
+| GitHub 仓库名 `multicomix` | **无任何同名仓库** |
+| 漫画阅读器领域 `multicomix comic` | 无占用 |
 | `ComiX` 系列（`comix reader` 等） | 只有若干零星小项目，无同名者 |
 
 ## 两条硬约束（候选筛选时使用）

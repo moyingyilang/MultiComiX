@@ -6,13 +6,13 @@
 
     <application
         android:allowBackup="false"
-        android:label="TriComiX"
+        android:label="MultiComiX"
         android:supportsRtl="true"
-        android:theme="@style/Theme.TriComiX">
+        android:theme="@style/Theme.MultiComiX">
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="TriComiX">
+            android:label="MultiComiX">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

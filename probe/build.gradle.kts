@@ -14,7 +14,7 @@ dependencies {
 }
 
 application {
-    mainClass.set("com.tricomix.probe.MainKt")
+    mainClass.set("com.multicomix.probe.MainKt")
     applicationDefaultJvmArgs = listOf("-Dfile.encoding=UTF-8", "-Djava.net.preferIPv4Stack=true")
 }
 
@@ -22,7 +22,7 @@ application {
 tasks.register<JavaExec>("rawDump") {
     group = "verification"
     classpath = sourceSets["main"].runtimeClasspath
-    mainClass.set("com.tricomix.probe.RawKt")
+    mainClass.set("com.multicomix.probe.RawKt")
     jvmArgs("-Djava.net.preferIPv4Stack=true", "-Dfile.encoding=UTF-8")
     val raw = (project.findProperty("rawArgs") as String? ?: "")
     args(raw.split(" ").filter { it.isNotBlank() })
@@ -32,7 +32,7 @@ tasks.register<JavaExec>("rawDump") {
 tasks.register<JavaExec>("jmProbe") {
     group = "verification"
     classpath = sourceSets["main"].runtimeClasspath
-    mainClass.set("com.tricomix.probe.JmProbeKt")
+    mainClass.set("com.multicomix.probe.JmProbeKt")
     jvmArgs("-Djava.net.preferIPv4Stack=true", "-Dfile.encoding=UTF-8")
     val a = (project.findProperty("jmArgs") as String? ?: "")
     args(a.split(" ").filter { it.isNotBlank() })
@@ -42,7 +42,7 @@ tasks.register<JavaExec>("jmProbe") {
 tasks.register<JavaExec>("ehProbe") {
     group = "verification"
     classpath = sourceSets["main"].runtimeClasspath
-    mainClass.set("com.tricomix.probe.EhProbeKt")
+    mainClass.set("com.multicomix.probe.EhProbeKt")
     jvmArgs("-Djava.net.preferIPv4Stack=true", "-Dfile.encoding=UTF-8")
     val a = (project.findProperty("ehArgs") as String? ?: "")
     args(a.split(" ").filter { it.isNotBlank() })

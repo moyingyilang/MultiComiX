@@ -1,6 +1,6 @@
 # 跟上游 JMNeXt 的同步办法
 
-TriComiX 的界面是「从 JMNeXt 搬过来再改成多源」，而上游还在改。
+MultiComiX 的界面是「从 JMNeXt 搬过来再改成多源」，而上游还在改。
 靠记忆记不住谁落后多少，所以把判断做成可执行的对照。
 
 ## 一、先量：`scripts/upstream-drift.sh`
@@ -30,7 +30,7 @@ scripts/upstream-drift.sh /path/to/JMNeXt
 2. **上游的 `JmEasing` 在 `Theme.kt` 里，不是单独文件**。搬 `JmMotion.kt` 时会缺 `emphasized`
    等成员；正确做法是把缺的成员补进本地的 `JmEasing`，而不是新建一个同名 object（会 Redeclaration）。
 3. **`SectionTitle` 依赖 `JmTheme`**，属于"可直接搬"的前提是本项目已有同名主题入口；
-   TriComiX 有，所以只改 import 就行。
+   MultiComiX 有，所以只改 import 就行。
 4. 容器里构建要先修 `/dev`（见 `android-termux-builders4JMNeXt/10-enter.sh`），
    否则任何 `>/dev/null` 都报 Permission denied，看起来像项目丢了。
 

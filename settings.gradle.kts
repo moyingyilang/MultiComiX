@@ -1,4 +1,4 @@
-// TriComiX：多源漫画客户端（core + 可插拔源 + Android 应用）
+// MultiComiX：多源漫画客户端（core + 可插拔源 + Android 应用）
 pluginManagement {
     repositories {
         google()
@@ -14,7 +14,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "TriComiX"
+rootProject.name = "MultiComiX"
 
 include(":core")
 include(":source-jm")

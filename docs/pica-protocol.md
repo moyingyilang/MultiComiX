@@ -1,4 +1,4 @@
-# PicACG 协议笔记（TriComiX 自用）
+# PicACG 协议笔记（MultiComiX 自用）
 
 > **来源与边界**：本文来自本项目私有存档 `picacg-reversing` 的协议文档与原生层分析，
 > 以及一个**公开参照实现**（`2024baibai/PicaComic-Api`）的结构阅读。
@@ -92,7 +92,7 @@ PicACG 只有三档：`original` / `normal` / `low`，通过 **`image-quality` �
 
 | 项 | 现行做法 |
 | --- | --- |
-| 凭据来源 | 环境变量 `TRICOMIX_PICA_APIKEY` / `TRICOMIX_PICA_SIGNINGKEY`，或本地文件 `~/.tricomix/pica-keys.properties`（`apiKey=` / `signingKey=`） |
+| 凭据来源 | 环境变量 `TRICOMIX_PICA_APIKEY` / `TRICOMIX_PICA_SIGNINGKEY`，或本地文件 `~/.multicomix/pica-keys.properties`（`apiKey=` / `signingKey=`） |
 | 仓库内容 | **不含任何密钥**（含全部 git 历史；含密钥的文件已从历史中移除并 gc） |
 | 缺失时行为 | **明确报错**并指出该设哪个环境变量 —— 不静默用错值（否则表现为"签名一直被拒"，极难排查） |
 | 测试 | 注入假凭据（测试只验证请求头与签名构造，不关心真实值） |

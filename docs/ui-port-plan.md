@@ -74,7 +74,7 @@
 | `repo.coverUrl(comic)` | → `comic.coverUrl`（`core.Comic` 已带） |
 | `ListItem` 等 JM DTO | → `core.Comic` |
 | tag 屏蔽（`hiddenFlow` / `tagBlocker` / `hiddenIds`） | **丢掉**（JM 专有；统一接口不表达屏蔽规则） |
-| `com.jmnext.ui.*` 导入 | 映射为 `com.tricomix.android.ui.*`（组件已迁入） |
+| `com.jmnext.ui.*` 导入 | 映射为 `com.multicomix.android.ui.*`（组件已迁入） |
 | 布局本身（Section 标题、LazyColumn/grid、加载与错误态的支架） | **保留**（这正是"沿用其界面"的部分） |
 
 **结论**：HomeScreen 的**布局可复用**，要换的是"数据管道 + 状态形状 + 屏蔽逻辑"。

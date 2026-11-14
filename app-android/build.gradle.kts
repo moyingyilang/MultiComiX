@@ -6,12 +6,12 @@ plugins {
 }
 
 android {
-    namespace = "com.tricomix.android"
+    namespace = "com.multicomix.android"
     compileSdk = 37
     compileSdkMinor = 2
 
     defaultConfig {
-        applicationId = "com.tricomix"
+        applicationId = "com.multicomix"
         minSdk = 24
         targetSdk = 36
         versionCode = 2

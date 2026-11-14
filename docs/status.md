@@ -5,7 +5,7 @@
 
 ## 一、目标与分层
 
-目标：把 TriComiX 做成「**JMNeXt 的上层 UI + 可插拔的底层图源**」，产出可安装的测试 APK。
+目标：把 MultiComiX 做成「**JMNeXt 的上层 UI + 可插拔的底层图源**」，产出可安装的测试 APK。
 
 - **底层**：统一接口 `ComicSource`（`core` 模块），已有三源 `source-jm` / `source-pica` / `source-eh`；
   能力用 `Capability`（LOGIN / SEARCH / HOME / FAVORITES / HISTORY / DOWNLOAD）表达；
@@ -48,9 +48,9 @@ su -c "pm install -r -t app-android/build/outputs/apk/debug/app-android-debug.ap
 .work/probe.sh eh "关键词" 1 full
 TRICOMIX_PASS='…' .work/probe.sh pica "关键词" 1 full 账号
 # JM 源探针（内存存储 + JDK 生成密钥，不需要 Android）
-.work/enter.sh "cd TriComiX && gradle -q :probe:jmProbe -PjmArgs='test'"
+.work/enter.sh "cd MultiComiX && gradle -q :probe:jmProbe -PjmArgs='test'"
 # 开发期核对真实响应
-.work/enter.sh "cd TriComiX && gradle -q :probe:rawDump -PrawArgs='<comicId>'"
+.work/enter.sh "cd MultiComiX && gradle -q :probe:rawDump -PrawArgs='<comicId>'"
 ```
 
 ## 五、下一步（逐屏迁入，按体积从小到大）
@@ -84,7 +84,7 @@ TRICOMIX_PASS='…' .work/probe.sh pica "关键词" 1 full 账号
 | --- | --- |
 | 主题 | JMNeXt 的 `theme/` 五个文件（Palettes/Shapes/Theme/ThemeStyle/Tokens，约 58 KB）已迁入并生效（`JmTheme`） |
 | 组件 | JMNeXt 的 `components/` 八个文件已迁入并通过编译（ComicCard/Glass/GlassTopBar/FloatingBottomBar/StateBox/LoadMoreFooter/ItemMotion/AmbientBackdrop） |
-| 壁纸 | `LocalWallpaper` / `WallpaperStore` 原样迁入（含正确的包名映射：jm 模块 → `com.tricomix.jm.*`，app 自身 → `com.tricomix.android.*`） |
+| 壁纸 | `LocalWallpaper` / `WallpaperStore` 原样迁入（含正确的包名映射：jm 模块 → `com.multicomix.jm.*`，app 自身 → `com.multicomix.android.*`） |
 | 关键抽象面 | `ComicCard` 已改为**只吃 `core.Comic`**（主项目里它吃 JM 的 `ListItem`） |
 | 界面能力化 | 搜索/首页/收藏/登录四个按钮按 `Capability` 显隐，并**显示"该源不支持：…"** |
 | 屏幕原文 | 看漫画四个屏幕 + NavHost（约 205 KB）已入库 `app-android/ported-ui/`，**不参与编译**，作为逐屏适配的原文 |
@@ -109,9 +109,9 @@ TRICOMIX_PASS='…' .work/probe.sh pica "关键词" 1 full 账号
 | --- | --- | --- |
 | `JMNeXt` | AGPL-3.0（34,523 字节） | 原有 |
 | `JMNeXt4QtDesktop` | AGPL-3.0（34,523 字节） | **本次补上**（取自主项目 LICENSE，逐字节一致），README 增加许可证说明与分发要求 |
-| `TriComiX` | AGPL-3.0（34,523 字节） | 原有 |
+| `MultiComiX` | AGPL-3.0（34,523 字节） | 原有 |
 
-意义：TriComiX 搬迁 JMNeXt 的界面代码、Qt 线将来复用 TriComiX 的源实现，**在许可上都没有障碍**。
+意义：MultiComiX 搬迁 JMNeXt 的界面代码、Qt 线将来复用 MultiComiX 的源实现，**在许可上都没有障碍**。
 
 ### 界面侧
 
@@ -129,7 +129,7 @@ TRICOMIX_PASS='…' .work/probe.sh pica "关键词" 1 full 账号
 
 ## 九、开源与脱敏（2026-10-07）
 
-- 仓库 `moyingyilang/TriComiX` 已改为 **public**；GitHub Project 已改名为「**漫画**」；
+- 仓库 `moyingyilang/MultiComiX` 已改为 **public**；GitHub Project 已改名为「**漫画**」；
 - **脱敏**：含哔咔签名密钥的文件已从**全部 git 历史**移除（pickaxe 对密钥与 `api-key` 字面量均为 0 命中），
   当前版本零硬编码，改为环境变量/本地文件提供，缺失时明确报错；
 - **残留风险（如实记录）**：该密钥曾被推送，托管方可能短期保留未引用对象 ⇒ 应视为已暴露；
@@ -142,7 +142,7 @@ TRICOMIX_PASS='…' .work/probe.sh pica "关键词" 1 full 账号
 ### 先确认环境（本文件第三节的七个坑都还会遇到）
 
 ```bash
-cd /data/data/com.termux/files/home/jmc/TriComiX
+cd /data/data/com.termux/files/home/jmc/MultiComiX
 .work/enter.sh 'bash .work/tc-all.sh'        # 全量单测（应全绿）
 .work/enter.sh 'bash .work/tc-apk.sh'        # 构建 APK
 su -c "pm install -r -t app-android/build/outputs/apk/debug/app-android-debug.apk"

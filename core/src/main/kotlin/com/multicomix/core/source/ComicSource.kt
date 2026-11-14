@@ -1,0 +1,83 @@
+package com.multicomix.core.source
+
+import com.multicomix.core.model.Chapter
+import com.multicomix.core.model.Comic
+import com.multicomix.core.model.ComicDetail
+import com.multicomix.core.model.ImageQuality
+import com.multicomix.core.model.ImageRequest
+import com.multicomix.core.model.PageRef
+import com.multicomix.core.model.Paged
+import com.multicomix.core.model.Section
+
+/** 源支持的能力。界面按能力决定显示哪些入口，而不是按源名做特判。 */
+enum class Capability {
+    LOGIN, SEARCH, FAVORITES, HISTORY, HOME, DOWNLOAD,
+
+    /** 能否**修改**收藏（加/取消）。只读收藏列表用 [FAVORITES]。 */
+    FAVORITE_WRITE,
+
+    /**
+     * 能否"追更"（跟踪作品更新）。目前无源实现，因此侧栏的追更入口会被剪空 ——
+     * 这是刻意的：不留点了没反应的入口。
+     */
+    FOLLOW,
+}
+
+/** 登录凭据。具体字段由各源解释（账号 / cookie 等）。 */
+data class SourceCredential(val fields: Map<String, String>)
+
+/** 一次会话（例如 token 或 cookie 集合）。 */
+data class Session(val fields: Map<String, String>)
+
+/**
+ * 源错误。
+ *
+ * 约定：源的实现**不向界面层抛异常**，一律返回 [Result.failure] 且异常类型为本类型。
+ */
+sealed class SourceError(message: String) : Exception(message) {
+    class Network(message: String) : SourceError(message)
+    class Auth(message: String) : SourceError(message)
+    class NotFound(message: String) : SourceError(message)
+    class Parse(message: String) : SourceError(message)
+    class Unsupported(message: String) : SourceError(message)
+    class Unknown(message: String) : SourceError(message)
+}
+
+/**
+ * 内容源接口。
+ *
+ * 实现约定：
+ * - 全部为 `suspend`，IO 自行切到合适的调度器；
+ * - 失败以 [Result.failure] + [SourceError] 返回；
+ * - 不缓存"界面状态"，只负责协议。
+ */
+interface ComicSource {
+    val id: String
+    val displayName: String
+    val capabilities: Set<Capability>
+
+    suspend fun login(credential: SourceCredential): Result<Session>
+    suspend fun logout()
+
+    suspend fun home(): Result<List<Section>>
+    suspend fun search(query: String, page: Int): Result<Paged<Comic>>
+    suspend fun detail(comicId: String): Result<ComicDetail>
+    suspend fun chapters(comicId: String): Result<List<Chapter>>
+    suspend fun pages(chapterId: String): Result<List<PageRef>>
+    suspend fun imageRequest(page: PageRef, quality: ImageQuality): Result<ImageRequest>
+
+    suspend fun favorites(page: Int): Result<Paged<Comic>>
+    suspend fun history(page: Int): Result<Paged<Comic>>
+
+    /**
+     * 切换收藏状态（加/取消）。
+     *
+     * 做成"切换"而不是"设为某状态"，是因为底层实现本身就是切换：
+     * JM 的 `JmRepository.toggleFavorite` 与 EH 的收藏表单都是这个语义。
+     *
+     * 默认返回"该源不支持"——所以**未覆盖的源编译与行为都不受影响**，
+     * 界面据 [Capability.FAVORITE_WRITE] 决定是否显示入口。
+     */
+    suspend fun toggleFavorite(comicId: String): Result<Unit> =
+        Result.failure(SourceError.Unsupported("该源不支持修改收藏"))
+}

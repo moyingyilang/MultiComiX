@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# 对照上游 JMNeXt，报告 TriComiX 的界面层漂移。
+# 对照上游 JMNeXt，报告 MultiComiX 的界面层漂移。
 #
-# 为什么需要它：TriComiX 的界面是「从 JMNeXt 搬过来再改成多源」，上游每个版本都会改这些文件。
+# 为什么需要它：MultiComiX 的界面是「从 JMNeXt 搬过来再改成多源」，上游每个版本都会改这些文件。
 # 人肉记不住谁落后了多少，所以把判断变成可执行的对照。
 #
 # 注意：两边的目录结构不同（上游 ui/screens/<模块>/X.kt，这边先是扁平的 ui/screens/X.kt），
@@ -13,7 +13,7 @@
 set -u
 UPSTREAM=${1:-../JMNeXt/app/src/main/kotlin/com/jmnext}
 HERE=$(cd "$(dirname "$0")/.." && pwd)
-LOCAL="$HERE/app-android/src/main/kotlin/com/tricomix/android"
+LOCAL="$HERE/app-android/src/main/kotlin/com/multicomix/android"
 
 [ -d "$UPSTREAM" ] || { echo "找不到上游：$UPSTREAM"; exit 1; }
 

@@ -1,4 +1,4 @@
-# E-Hentai 协议笔记（TriComiX 自用）
+# E-Hentai 协议笔记（MultiComiX 自用）
 
 > **来源与边界**：本文是对一份第三方 EhViewer（`com.xjs.ehviewer` 2.0.2.3，本地反编译产物）的
 > **结构阅读**结果，用于互操作性研究。我们据此**自行实现**，不复制对方代码。
@@ -57,5 +57,5 @@
 ## 附：为什么 `history` 不该由源实现
 
 EhViewer 的"历史"是**客户端本地记录**，服务端没有对应端点（参照实现的 parser 列表里也没有历史解析器）。
-所以 TriComiX 的 EH 源把 `history()` 保持为 `Unsupported`：阅读历史应由上层的本地存储承担，
+所以 MultiComiX 的 EH 源把 `history()` 保持为 `Unsupported`：阅读历史应由上层的本地存储承担，
 而不是由源去编造一个不存在的接口。
